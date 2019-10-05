@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwthymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Cliente</title>
+<link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">  
+</head>
+<body>
+	
+	<div class="container">
+		<br>
+		<div>
+			<a href="/cliente/new" class="btn btn-primary">Agregar Cliente</a>
+		</div>
+		<div th:switch="${List}">
+			<h2 th:if="${List.isEmpty()}">No hay Clientes</h2>
+			<div th:if="${!List.isEmpty()}">
+				<h2>Cliente</h2>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Dni</th>
+							<th>Apellidos</th>
+							<th>Nombre</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cliente : ${List}">
+							<td th:text="${cliente.dni}">
+							<td th:text="${cliente.apellidos}">
+							<td th:text="${cliente.nombre}">
+							<td><a class="btn btn-info" th:href="@{/cliente/edit/{id}(id=${cliente.cliente_id})}">Editar</a></td>
+						<td><a class="btn btn-danger" th:href="@{/cliente/delete/{id}(id=${cliente.cliente_id})}">Eliminar</a></td>
+						</tr>	
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
+
+</body>
+</html>
