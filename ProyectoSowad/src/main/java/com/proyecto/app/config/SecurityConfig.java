@@ -26,13 +26,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		/*
 		http.csrf().disable();
 		
 		http.authorizeRequests().antMatchers("/rest/**").authenticated().anyRequest().permitAll().and()
 		.authorizeRequests().antMatchers("/cliente/**").authenticated().anyRequest().hasAnyRole("ADMIN").and()
 		.formLogin().permitAll();
+		*/
 		
+		http.authorizeRequests()
+		.antMatchers(resources).permitAll()
+		.antMatchers("/","/login","/register","/index").permitAll()
+		.antMatchers("/cliente/**", "/producto/**").hasAnyRole("ADMIN").anyRequest().authenticated()
+		.and()
+		.formLogin()
+		.loginPage("/login")
+		.permitAll()
+		.defaultSuccessUrl("/index")
+		.failureUrl("/login?error=true")
+		.usernameParameter("username")
+		.passwordParameter("password")
+		.and()
+		.logout()
+		.permitAll()
+		.logoutSuccessUrl("/login?logout");
 	}
+	
+	/*@Override
+	public void configure(WebSecurity web) throws Exception{
+		web.ignoring().antMatchers("/resources/**","/static/**", "/css/**","/js/**","/images/**","/Bootstrap/**");
+	}
+	*/
+	
+	String[] resources = new String[]{
+            "/include/**","/css/**","/img/**","/js/**","/Bootstrap/**","/static/**","/Bootstrap/css/**","/Bootstrap/js/**","/Bootstrap/scss/**","/Bootstrap/vendedor/**"            
+	};
 	
 	@Bean
 	public BCryptPasswordEncoder encodePWD() {

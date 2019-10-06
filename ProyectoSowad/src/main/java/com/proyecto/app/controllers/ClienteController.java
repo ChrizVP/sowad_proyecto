@@ -20,16 +20,16 @@ public class ClienteController {
 	@RequestMapping("/cliente/home")
 	public String home(Model model) {
 		model.addAttribute("List", clienteService.getAll());
-		return"homeCliente";
+		return"clienteHome";
 	}
 	
 	@GetMapping("/cliente/edit/{id}")
 	public String showEdit(@PathVariable("id")Integer id, Model model) {
 		if(id !=null && clienteService.get(id)!=null){
 		model.addAttribute("cliente", clienteService.get(id));
-		return "save";
+		return "clienteSave";
 		}else {	
-			return "error";
+			return "404";
 		}
 	}
 	
@@ -43,7 +43,7 @@ public class ClienteController {
 	@GetMapping("/cliente/new")
 	public String saveNew(Model model) {
 		model.addAttribute("cliente", new Cliente());
-		return "save";
+		return "clienteSave";
 	}
 	
 	@PostMapping("/cliente/save/new")

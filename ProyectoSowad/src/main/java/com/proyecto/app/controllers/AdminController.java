@@ -3,25 +3,37 @@ package com.proyecto.app.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 
 import com.proyecto.app.models.User;
 import com.proyecto.app.repository.UserRepository;
 
-@RestController
-@RequestMapping("/secure/auth")
+@Controller
 public class AdminController {
 
 	@Autowired
 	private UserRepository userRepository;
 	
+	
+	
 	@Autowired
 	private BCryptPasswordEncoder PasswordEncoder;
 	
+	
+	@RequestMapping("/")
+	public String inicio(Model model) {
+		return "redirect:/index";
+	}
+
+	@RequestMapping("/index")
+	public String index(Model model) {
+		return "index";
+	}
 	
 	//@PreAuthorize("hasAnyRole('ADMIN')")
 	@GetMapping ("/admin/add")
@@ -32,6 +44,8 @@ public class AdminController {
 		userRepository.save(user);
 		return "user added successfully...";
 	}	
+	
+	
 	
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
