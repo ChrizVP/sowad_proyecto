@@ -1,5 +1,7 @@
 package com.proyecto.app.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
@@ -21,4 +23,7 @@ public class ClienteServiceImpl extends GenericService<Cliente, Integer> impleme
 		return ClienteRepository;
 	}
 
+	public List<Cliente> getClienteByDni(String dni) {
+		return getClienteByDni(dni);
+	}
 }

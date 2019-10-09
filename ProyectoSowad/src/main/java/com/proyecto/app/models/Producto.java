@@ -1,10 +1,15 @@
 package com.proyecto.app.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +31,29 @@ public class Producto {
 	private int cantidad;
 	@Column
 	private float precio;
+	
+	
+	 @OneToMany(mappedBy = "producto", cascade = CascadeType.MERGE, orphanRemoval = true)
+	 private List<VentaDetProducto> ordenesCompra = new ArrayList<>();
+	
+	 
+	
+	public Producto() {
+	}
+	
+	
+	
+	
+	public Producto(String nombre, String color, int cantidad, float precio) {
+		this.nombre = nombre;
+		this.color = color;
+		this.cantidad = cantidad;
+		this.precio = precio;
+	}
+
+
+
+
 	public int getProducto_id() {
 		return producto_id;
 	}
@@ -55,6 +83,12 @@ public class Producto {
 	}
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+	public List<VentaDetProducto> getOrdenesCompra() {
+		return ordenesCompra;
+	}
+	public void setOrdenesCompra(List<VentaDetProducto> ordenesCompra) {
+		this.ordenesCompra = ordenesCompra;
 	}
 	
 	

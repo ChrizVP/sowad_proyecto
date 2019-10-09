@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
+import com.proyecto.app.models.Cliente;
+
 public abstract class GenericService <T, ID extends Serializable> implements Generic<T, ID>{
 
 	@Override
@@ -34,7 +36,9 @@ public abstract class GenericService <T, ID extends Serializable> implements Gen
 		getDao().findAll().forEach(obj -> returnList.add(obj));
 		return returnList;
 	}
-
+	
+	
+	
 	
 	public abstract CrudRepository<T, ID> getDao();
 	

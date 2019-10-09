@@ -3,8 +3,6 @@ package com.proyecto.app.service;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import javax.sound.midi.SysexMessage;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

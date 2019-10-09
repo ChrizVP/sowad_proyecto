@@ -26,18 +26,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		/*
+		
 		http.csrf().disable();
 		
 		http.authorizeRequests().antMatchers("/rest/**").authenticated().anyRequest().permitAll().and()
-		.authorizeRequests().antMatchers("/cliente/**").authenticated().anyRequest().hasAnyRole("ADMIN").and()
-		.formLogin().permitAll();
-		*/
+		.authorizeRequests().antMatchers("/cliente/**","/xd/**").authenticated().anyRequest().permitAll();
+		/*
 		
 		http.authorizeRequests()
 		.antMatchers(resources).permitAll()
-		.antMatchers("/","/login","/register","/index").permitAll()
-		.antMatchers("/cliente/**", "/producto/**").hasAnyRole("ADMIN").anyRequest().authenticated()
+		.antMatchers("/login","/register").permitAll()
+		.antMatchers("/cliente/**", "/producto/**","/index/**","/demo/**","/xd/**","/saveCliente").hasAnyRole("ADMIN").anyRequest().authenticated()
 		.and()
 		.formLogin()
 		.loginPage("/login")
@@ -50,6 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.logout()
 		.permitAll()
 		.logoutSuccessUrl("/login?logout");
+		*/
 	}
 	
 	/*@Override
