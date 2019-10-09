@@ -28,7 +28,7 @@ public class ProductoController {
 	public String showEdit(@PathVariable("id")Integer id, Model model) {
 		if(id !=null && productoService.get(id)!=null){
 		model.addAttribute("producto", productoService.get(id));
-		return "productoSave";
+		return "productoEdit";
 		}else {	
 			return "404";
 		}

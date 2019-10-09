@@ -27,9 +27,9 @@ public class ClienteController {
 	public String showEdit(@PathVariable("id")Integer id, Model model) {
 		if(id !=null && clienteService.get(id)!=null){
 		model.addAttribute("cliente", clienteService.get(id));
-		return "clienteSave";
+		return "clienteEdit";
 		}else {	
-			return "404";
+			return "error";
 		}
 	}
 	
