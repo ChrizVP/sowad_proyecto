@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-
+import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.app.models.User;
 import com.proyecto.app.repository.UserRepository;
 
 
-@Controller
+@RestController
 public class AdminController {
 
 
@@ -34,18 +33,6 @@ public class AdminController {
 	private BCryptPasswordEncoder PasswordEncoder;
 	
 	
-	@RequestMapping("/")
-	public String inicio(Model model) {
-		return "redirect:/index";
-	}
-
-	
-	
-	
-	@RequestMapping("/index")
-	public String index(Model model) {
-		return "index";
-	}
 	
 	//@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping ("/admin/add")

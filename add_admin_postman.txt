@@ -1,0 +1,16 @@
+primero desactivar security 
+
+metodo = POST
+
+http://localhost:8080/admin/add
+
+
+{
+	"user_id":102,
+	"username":"christian222@gmail.com",
+	"password":"summer9620",
+	"nombre":"christian villena perez",
+	"roles":[{
+		"role":"USER"
+	}]
+}

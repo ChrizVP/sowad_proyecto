@@ -18,16 +18,25 @@ public class AuthenticationController {
 		return "login";
 	}
 	
-	@RequestMapping("/xd")
-	public String xd(Model model) {
-		return "xD";
-	}
-	
 	
 	@GetMapping("/register")
 	public String register(Model model) {
 		return "register";
 	}
 
+	@RequestMapping("/")
+	public String inicio(Model model) {
+		return "redirect:/index";
+	}
+
+	
+	
+	
+	@RequestMapping("/index")
+	public String index(Model model) {
+		return "index";
+	}
+	
+	
 	
 }
