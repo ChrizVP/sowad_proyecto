@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -47,7 +48,7 @@ public class AdminController {
 	}
 	
 	//@PreAuthorize("hasAnyRole('ADMIN')")
-	@GetMapping ("/admin/add")
+	@PostMapping ("/admin/add")
 	public String addUserByAdmin(@RequestBody User user) {
 		String pwd = user.getPassword();
 		String encryptPwd = PasswordEncoder.encode(pwd);

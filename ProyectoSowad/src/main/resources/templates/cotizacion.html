@@ -9,7 +9,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Home Cliente</title>
+  <title>Nueva Cotizacion</title>
+	
+	
 
   <!-- Custom fonts for this template-->
   <link href="../static/Bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" th:href="@{/Bootstrap/vendor/fontawesome-free/css/all.min.css}">
@@ -62,7 +64,7 @@
           <i class="fas fa-fw fa-cog"></i>
           <span>Clientes</span>
         </a>
-        </li>
+        
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
@@ -70,13 +72,7 @@
           <i class="fas fa-fw fa-wrench"></i>
           <span>Productos</span>
         </a>
-        </li>
-        <li class="nav-item">
-	        <a class="nav-link collapsed" th:href="@{/cotizacion}"  data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-	          <i class="fas fa-fw fa-cog"></i>
-	          <span>Cotizacion</span>
-	        </a>
-		</li>
+        
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -219,7 +215,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><div id="datosVendedor"></div></span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -251,46 +247,140 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-          <!-- Page Heading -->
-         
-         	<div class="container">
+       
+	   <div class="container">
+				<h4> Nueva Cotización</h4>
+				<form  th:action="@{/cotizacion/buscarCliente}">
+					  <label for="dni" >DNI:</label>
+					  <div class="col-md-2">
+						  <input type="text" id="dni" name="dni" class="form-control" placeholder="Ingrese Dni ">
+					  </div>
+					  <button  type="submit" class="btn btn-info">Buscar</button>
+				</form>
 				<br>
-				<div>
-					<a href="/cliente/new" class="btn btn-primary">Agregar Cliente</a>
+			<div class="form-group row">
+				<label for="nombre" >NOMBRE:</label>
+					<div class="col-md-2">
+						<input type="text" class="form-control" th:field="*{cliente.nombre}"  readonly="readonly">
+					</div>
+				<label for="apellidos" >APELLIDOS:</label>
+				<div class="col-md-2">
+					<input type="text" class="form-control" th:field="*{cliente.apellidos}"  readonly="readonly">
 				</div>
-				<div th:switch="${List}">
-					<h2 th:if="${List.isEmpty()}">No hay Clientes</h2>
-					<div th:if="${!List.isEmpty()}">
-						<br>
-						<h2>Cliente</h2>
-						<br>
-						<table class="table">
+			</div>
+
+			<div>
+				<form class="form-horizontal" role="form" >
+					<div class="col-md-3">
+						<div class="pull-right">
+							<button type="button" id="boton-productos" name="boton-productos" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+							 <span class="glyphicon glyphicon-plus"></span> Agregar productos
+							</button>
+							<button type="submit" class="btn btn-primary">
+							  <span class="glyphicon glyphicon-print"></span> Imprimir
+							</button>
+						</div>	
+					</div>
+				</form>
+			</div>
+			
+		<!-- Productos Cotizados -->
+		
+			
+				<div class="col-sm-12 ">
+					<div class="table-responsive cart_info">
+						<table class="table table-bordered table-hower" >
 							<thead>
 								<tr>
-									<th>Dni</th>
-									<th>Apellidos</th>
+									<th>Id</th>
 									<th>Nombre</th>
-									<th></th>
+									
+									<th>Total</th>
 									<th></th>
 								</tr>
 							</thead>
-							<tbody>
-								<tr th:each="cliente : ${List}">
-									<td th:text="${cliente.dni}">
-									<td th:text="${cliente.apellidos}">
-									<td th:text="${cliente.nombre}">
-									<td><a class="btn btn-info" th:href="@{/cliente/edit/{id}(id=${cliente.cliente_id})}">Editar</a></td>
-								<td><a class="btn btn-danger" th:href="@{/cliente/delete/{id}(id=${cliente.cliente_id})}">Eliminar</a></td>
+							<tbody>	
+								<tr th:each="compra: ${compras}">
+									<td th:text="${compra.producto.producto_id}">
+									<td th:text="${compra.producto.nombre}">
+									<td>
+									<!-- <td> <p th:text="${compra.ventaCabProducto.subtotal}"></p>-->		
+									<td><a class="btn btn-danger" href="#" >Eliminar</a> </td>
+									<!-- th:href="@{/venta/{id}(id=${compra.producto.producto_id})}" -->
 								</tr>	
 							</tbody>
 						</table>
 					</div>
 				</div>
-			</div>
-
-        </div>
+			
+				<div>
+					<form class="form-horizontal" role="form" >
+							<div class="pull-right">
+								<div class="col-md-2">
+								<input type="text"  class="form-control" th:field="*{total.total}"  readonly="readonly">
+								</div>
+								<br>
+								<a href="/cotizacion/cancelar" class="btn btn-danger"  >Cancelar</a>
+								<a  href="/usuario/venta" class="btn btn-success">Realizar Compra</a>
+							</div>	
+					</form>
+				</div>
+			<!--/#do_action-->
+		<!-- Productos Cotizados -->
+			
+				<!-- Modal -->
+				<div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				  <div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Buscar productos</h4>
+					  </div>
+					  
+					  <div class="modal-body">
+						<form class="form-horizontal">
+						  <div class="form-group">
+							<div class="col-sm-3">
+							  <input type="text" class="form-control" id="q" placeholder="Buscar productos" onkeyup="load(1)">
+							</div>
+							<button type="button" class="btn btn-default" onclick="load(1)"><span class='glyphicon glyphicon-search'></span> Buscar</button>
+						  </div>
+						</form>
+						<div id="loader" style="position: absolute;	text-align: center;	top: 55px;	width: 100%;display:none;"></div><!-- Carga gif animado -->
+						<div class="outer_div" ></div><!-- Datos ajax Final -->
+					  </div>
+					  
+						<form  th:action="@{/add/cotizacion/}+${producto.producto_id}" th:object="${ordenCompra}" method="post" th:each="producto: ${productos}">
+							<table  class="table table-bordered table-hower" >
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Nombre</th>
+										<th>Color</th>
+										<th>Cantidad</th>
+										<th>Precio</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>							
+									<tr>
+										<td th:text="${producto.producto_id}">
+										<td th:text="${producto.nombre}">
+										<td th:text="${producto.color}">
+										<td><input type="number" id="cantidad" name="cantidad" value="1" style="width:40px" min="1" max="20" /></td>
+										<td th:text="${producto.precio}">		
+										<td><input type="submit" value="Agregar" /></td>
+									</tr>	
+								</tbody>
+							</table>
+						</form>
+					  	<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					  	</div>
+					</div>
+				  </div>
+				</div>
+	</div>
         <!-- /.container-fluid -->
 
       </div>
@@ -344,6 +434,9 @@
       </div>
     </div>
   </div>
+
+
+	
 
   <!-- Bootstrap core JavaScript-->
   <script src="../static/Bootstrap/vendor/jquery/jquery.min.js" th:src="@{/Bootstrap/vendor/jquery/jquery.min.js}"></script>

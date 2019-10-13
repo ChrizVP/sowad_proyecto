@@ -37,9 +37,7 @@ public class CustomUserDetails implements UserDetails{
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	
-
+		
 	@Override
 	public String getPassword() {
 		return user.getPassword();

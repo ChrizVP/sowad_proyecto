@@ -41,13 +41,13 @@ public class VentaCabProducto  implements Serializable {
 	private String estado;
 	
 	@Column
-	private Float total;
+	private Float total=0.0f;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private Cliente cliente_id;
+	@Column
+	private int cliente_id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	private User user_id;
+	@Column
+	private int user_id;
 	
 	@Column
 	private Date fecha;
@@ -63,7 +63,8 @@ public class VentaCabProducto  implements Serializable {
 	}
 
 
-	
+
+
 	@OneToMany(mappedBy = "ventaCabProducto", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<VentaDetProducto> productos = new ArrayList<>();
 	
@@ -95,6 +96,33 @@ public class VentaCabProducto  implements Serializable {
 		return total;
 	}
 
+
+
+
+	public int getCliente_id() {
+		return cliente_id;
+	}
+
+
+
+	public void setCliente_id(int cliente_id) {
+		this.cliente_id = cliente_id;
+	}
+
+
+
+	public int getUser_id() {
+		return user_id;
+	}
+
+
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+
+
+
 	public void setTotal(Float total) {
 		this.total = total;
 	}
@@ -117,11 +145,14 @@ public class VentaCabProducto  implements Serializable {
         for (Iterator<VentaDetProducto> iterator = productos.iterator(); 
              iterator.hasNext(); ) {
         	VentaDetProducto ventaDetProducto = iterator.next();
- 
-            if (ventaDetProducto.getVentaCabProducto().equals(this) &&
-            		ventaDetProducto.getProducto().equals(producto)) {
-                iterator.remove();
+            if (ventaDetProducto.getProducto().getProducto_id() == producto.getProducto_id() ) {
+            	System.out.println("HASTA AQUI LLEGUE :V");
+            	System.out.println(producto.getProducto_id());
+            	System.out.println(ventaDetProducto.getProducto().getProducto_id());
+               
+                
                 ventaDetProducto.getProducto().getOrdenesCompra().remove(ventaDetProducto);
+                iterator.remove();
                 ventaDetProducto.setVentaCabProducto(null);
                 ventaDetProducto.setProducto(null);
             }

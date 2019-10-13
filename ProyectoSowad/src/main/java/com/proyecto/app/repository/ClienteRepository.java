@@ -8,6 +8,6 @@ import com.proyecto.app.models.Cliente;
 
 public interface ClienteRepository extends CrudRepository<Cliente, Integer>{
 
-	List<Cliente> findByDni(String dni);
-
+	//List<Cliente> findByDni(String dni);
+	Cliente findByDni(String dni);
 }

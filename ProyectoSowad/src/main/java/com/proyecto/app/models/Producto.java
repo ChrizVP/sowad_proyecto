@@ -1,5 +1,6 @@
 package com.proyecto.app.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,13 +12,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-public class Producto {
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+public class Producto implements Serializable{
 
 	
 	@Id

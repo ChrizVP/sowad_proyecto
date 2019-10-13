@@ -1,51 +1,53 @@
 package com.proyecto.app.controllers;
 
-
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.proyecto.app.models.Cliente;
+import com.proyecto.app.models.User;
 import com.proyecto.app.repository.PersonalizadoClienteRepository;
-import com.proyecto.app.service.ClienteService;
+import com.proyecto.app.repository.UserRepository;
 
+
+@RequestMapping("/cotizacion")
 @RestController
-@RequestMapping("/demo")
-public class pruebaController {
-	
-	@Autowired
-	private ClienteService ClienteService;
-	
+public class CotizacionController {
+
 	
 	
 	@Autowired
 	private PersonalizadoClienteRepository personalizadoClienteRepository;
 	
-
-	@PostMapping("/saveCliente")
+	@Autowired
+	private UserRepository UserRepository;
+	
+	private User user = new User();
+	
+	@PostMapping("/buscarcliente")
 	public ResponseEntity<Object> addBook(@RequestBody Cliente cliente) {
-		
-		
 		Cliente response = new Cliente();
 		response = personalizadoClienteRepository.findByDni(cliente.getDni());
-		//response = ClienteService.get(cliente.getCliente_id());
 		return new ResponseEntity<Object>(response, HttpStatus.OK);
 	}
 	
-	@RequestMapping("/user")
-	@ResponseBody
-	public Principal user(Principal principal) {
-		return principal;
+	
+	@RequestMapping("/buscar/usuario")
+	public User user(Principal principal) {
+		
+		user = UserRepository.findByUsername(principal.getName());
+		return user;
+			
 	}
 	
 }
-

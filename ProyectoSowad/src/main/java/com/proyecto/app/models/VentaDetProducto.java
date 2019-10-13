@@ -35,14 +35,15 @@ public class VentaDetProducto  implements Serializable {
 	private Producto producto;
 	
 	@Column
-	private int cantidad;
+	public int cantidad;
 	
 	@Column
-	private Float subTotal;
+	public Float subTotal;
 	
 
 
 	public VentaDetProducto() {
+		
 	}
 
 
