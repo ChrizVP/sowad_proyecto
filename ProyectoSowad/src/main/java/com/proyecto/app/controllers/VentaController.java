@@ -25,6 +25,7 @@ import com.proyecto.app.models.VentaCabProducto;
 import com.proyecto.app.models.VentaDetProducto;
 import com.proyecto.app.repository.ClienteRepository;
 import com.proyecto.app.repository.UserRepository;
+import com.proyecto.app.repository.VentaCabProductoRepository;
 import com.proyecto.app.service.ProductoService;
 import com.proyecto.app.service.VentaCabProductoService;
 import com.proyecto.app.service.VentaDetProductoService;
@@ -48,6 +49,9 @@ public class VentaController {
 	private ProductoService productoService;
 	
 	@Autowired
+	private VentaCabProductoRepository VentaCabProductoRepository;
+	
+	@Autowired
 	private ClienteRepository clienteRepository;
 	
 	private Cliente cliente = new Cliente();
@@ -58,6 +62,11 @@ public class VentaController {
 	@ElementCollection
 	private List<VentaDetProducto> detProductos =  new ArrayList<VentaDetProducto>();
 	
+	@RequestMapping("/reporte/cotizacion")
+	public String home(Model model) {
+		model.addAttribute("List", ventaCabProductoService.getAll());
+		return"reporte";
+	}
 	
 	
 	@RequestMapping("/usuario/venta")
@@ -79,12 +88,11 @@ public class VentaController {
 		return "redirect:/cotizacion";
 	}
 	
+	
 	@RequestMapping(value="/cotizacion",method=RequestMethod.GET)
 	public String producto(Model model){
-		
 		if(ventaCabProducto==null) {
 			ventaCabProducto = new VentaCabProducto();
-			
 			model.addAttribute("total", ventaCabProducto);
 			model.addAttribute("compras", detProductos);
 		}else {
@@ -99,8 +107,6 @@ public class VentaController {
 	
 	@RequestMapping(value="/add/cotizacion/{id}",method=RequestMethod.POST)
 	public String guardar(@Valid Producto producto ,BindingResult result, Model model, SessionStatus status, RedirectAttributes f,@PathVariable("id") int idProducto, @RequestParam("cantidad") int cantidad) {	
-		
-		
 		if(ventaCabProducto==null){
 			ventaCabProducto = new VentaCabProducto();
 		}
@@ -109,14 +115,11 @@ public class VentaController {
 		ventaCabProducto.addProducto(p, cant);
 		VentaDetProducto d= new VentaDetProducto(ventaCabProducto, p, cant);
 		d.calcularSubTotal();
-		
 		float total = ventaCabProducto.getTotal(); 
 		float subtotal = d.getSubTotal();
 		ventaCabProducto.actualizarTotal(total, subtotal);
-		
 		ventaCabProducto.setCliente_id(cliente.getCliente_id());
 		detProductos.add(d);
-		
 		return "redirect:/cotizacion";
 		
 	}
@@ -124,7 +127,6 @@ public class VentaController {
 	
 	@RequestMapping(value="/venta/{id}",method=RequestMethod.GET)
 	public String remove(@PathVariable("id") int producto_id){
-		
 		Producto p1 = new Producto();
 		p1 = productoService.get(producto_id);
 		ventaCabProducto.removeProducto(p1);
@@ -135,7 +137,6 @@ public class VentaController {
 	public String realizarVenta(RedirectAttributes f) {	
 		if(detProductos.isEmpty()){
 			f.addFlashAttribute("error","El detalle venta no puede estar vacio!");
-			
 			return "redirect:/cotizacion";
 		}
 		ventaCabProducto.setUser_id(user.getUser_id());

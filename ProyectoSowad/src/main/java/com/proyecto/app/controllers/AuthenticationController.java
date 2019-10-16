@@ -29,9 +29,6 @@ public class AuthenticationController {
 		return "redirect:/index";
 	}
 
-	
-	
-	
 	@RequestMapping("/index")
 	public String index(Model model) {
 		return "index";
