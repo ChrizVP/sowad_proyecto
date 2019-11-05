@@ -10,21 +10,25 @@ import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 
+
 import org.springframework.stereotype.Component;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.Setter;
 
 
 @Entity
+@Getter
+@Setter
 @Component
 public class VentaCabProducto  implements Serializable {
 
@@ -64,7 +68,7 @@ public class VentaCabProducto  implements Serializable {
 
 
 
-
+	@JsonBackReference
 	@OneToMany(mappedBy = "ventaCabProducto", cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<VentaDetProducto> productos = new ArrayList<>();
 	

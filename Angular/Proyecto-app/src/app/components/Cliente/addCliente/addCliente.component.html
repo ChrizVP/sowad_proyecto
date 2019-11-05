@@ -1,0 +1,46 @@
+<div id="wrapper">
+    <app-sidebar></app-sidebar>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+          <app-topbar></app-topbar>
+          
+            
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Agregar Cliente</h3>
+                </div>
+                <div class="card-body">
+                    <form action="">
+                        <div class="form-group">
+                            <label for="">DNI</label>
+                            <input [(ngModel)]="cliente.dni" name="dni" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                                <label for="">Apellidos</label>
+                                <input [(ngModel)]="cliente.apellidos" name="apellidos" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                                <label for="">Nombre</label>
+                                <input [(ngModel)]="cliente.nombre" name="nombre" type="text" class="form-control">
+                        </div>
+                        <button (click)="GuardarCliente()" class="btn btn-danger">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+        </div> 
+        <app-footer></app-footer>
+    </div>
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<app-logout-modal></app-logout-modal>
+
+
+
+

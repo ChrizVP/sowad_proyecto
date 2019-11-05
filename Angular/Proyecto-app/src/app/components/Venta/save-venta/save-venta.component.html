@@ -1,0 +1,181 @@
+<div id="wrapper">
+  <app-sidebar></app-sidebar>
+  <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <app-topbar></app-topbar>
+
+
+<div class="container">
+    <div class="row-fluid">
+      <div class="col-md-12">
+      <h2><span class="glyphicon glyphicon-edit"></span> Nueva Venta</h2>
+      <hr>
+      <form class="form-horizontal" role="form" id="datos_cotizacion">
+          <div class="form-group row">
+            <label for="atencion" class="col-md-1 control-label">DNI:</label>
+            <div class="col-md-3">
+                <input type="text" [(ngModel)]="cliente.dni" name="dni" class="form-control"  placeholder="" required>
+            </div>
+            <button for="" (click)="BuscarCliente(cliente)" class="btn btn-primary">Buscar</button>
+                     
+          </div>
+      </form>
+          <div class="form-group row">
+
+            <label for="empresa" class="col-md-1 control-label">Nombre:</label>
+            <div class="col-md-3">
+              <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" placeholder="" readonly>
+            </div>
+
+            <label for="tel2" class="col-md-1 control-label">Apellidos:</label>
+            <div class="col-md-2">
+              <input type="text" class="form-control" [(ngModel)]="cliente.apellidos" name="apellidos" placeholder="" readonly>
+            </div>
+
+          </div>
+      
+      
+      
+      
+      
+          <div class="col-md-12">
+              <div class="pull-right" style="margin-left: 715px;">
+                  <button (click)="ListarProducto()" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+                   <span class="glyphicon glyphicon-plus"></span> Agregar productos
+                  </button>
+                  <button type="submit" class="btn btn-secondary" style="margin-left: 10px;">
+                    <span class="glyphicon glyphicon-print" ></span> Imprimir
+                  </button>
+              </div>	
+          </div>
+      
+          <hr>
+      <!-- Productos Cotizados -->
+		
+			
+				<div class="col-sm-12 ">
+					<div class="table-responsive cart_info">
+						<table class="table table-bordered table-hower"  >
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Nombre</th>
+									<th>Cantidad</th>
+									<th>Total</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>	
+								<tr *ngFor="let ventaDetProducto of ventaDetProducto">
+									<td>{{ventaDetProducto.producto.producto_id}}</td>
+                  <td>{{ventaDetProducto.producto.nombre}}</td>
+                  <td>{{ventaDetProducto.cantidad}}</td>
+									<td>{{ventaDetProducto.subTotal}}</td>
+									<td><button class="btn btn-danger" href="" >Eliminar</button></td>
+								</tr>	
+							</tbody>
+						</table>
+					</div>
+				</div>
+			
+				<div >
+					<form class="form-horizontal" role="form" >
+							<div class="pull-right">
+								<div class="col-md-2">
+								<input type="text"  class="form-control" [(ngModel)]="ventaCabProducto.total" name="total" style="margin-left: 825px;" readonly="readonly">
+								</div>
+								<br>
+								<button (click)="CancelarVenta()" href="" class="btn btn-danger" style="margin-left: 740px;" >Cancelar</button>
+								<button (click)="RealizarVenta()" href="" class="btn btn-success" style="margin-left: 10px;">Realizar Compra</button>
+							</div>	
+					</form>
+				</div>
+			
+		<!-- Productos Cotizados -->
+
+      
+      <br><br>
+  <div id="resultados" class='col-md-12'></div><!-- Carga los datos ajax -->
+
+
+
+
+
+
+
+      <!-- Modal -->
+      <div class="modal fade bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Buscar productos</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="q" placeholder="Buscar productos" onkeyup="load(1)">
+                  </div>
+                  <button type="button" class="btn btn-default" onclick="load(1)"><span class='glyphicon glyphicon-search'></span> Buscar</button>
+                </div>
+              </form>
+              <div id="loader" style="position: absolute;	text-align: center;	top: 55px;	width: 100%;display:none;"></div><!-- Carga gif animado -->
+              <div class="outer_div" ></div><!-- Datos ajax Final -->
+            </div>
+
+            <form>
+							<table  class="table table-bordered table-hower" >
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Nombre</th>
+										<th>Color</th>
+										<th>Cantidad</th>
+										<th>Precio</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+                  <tr *ngFor="let producto of productos" class="text-center">
+                    <td>{{producto.producto_id}}</td>
+						        <td>{{producto.nombre}}</td>
+                    <td>{{producto.color}}</td>
+                    <td><input type="number"   #cantidad value="1" style="width:40px" min="1" max="20" /></td>
+                    <td>{{producto.precio}}</td>		
+										<td><button (click)="AddProducto(producto,cantidad.value)">Agregar</button></td>
+									</tr>	
+								</tbody>
+							</table>
+						</form>
+
+
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      </div>	
+   </div>
+</div>
+
+
+
+
+</div> 
+<app-footer></app-footer>
+</div>
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+<app-logout-modal></app-logout-modal>

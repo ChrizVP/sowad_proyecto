@@ -1,0 +1,48 @@
+<div id="wrapper">
+    <app-sidebar></app-sidebar>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+          <app-topbar></app-topbar>
+
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>Clientes</h3>
+            <button (click)="NuevoCliente()" class="btn btn-primary">Agregar Cliente</button>
+        </div>
+        
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="text-center">
+                        <th>Dni</th>
+                        <th>Apellidos</th>
+                        <th>Nombre</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cliente of clientes" class="text-center">
+                        <td>{{cliente.dni}}</td>
+						<td>{{cliente.apellidos}}</td>
+						<td>{{cliente.nombre}}</td>
+						<td><button (click)="EditarCliente(cliente)" class="btn btn-info" >Editar</button>
+                            <button (click)="showModalDelete(cliente)" class="btn btn-danger"  style="margin-left: 10px;">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</div> 
+<app-footer></app-footer>
+</div>
+</div>
+<a class="scroll-to-top rounded" href="#page-top">
+<i class="fas fa-angle-up"></i>
+</a>
+<app-logout-modal></app-logout-modal>

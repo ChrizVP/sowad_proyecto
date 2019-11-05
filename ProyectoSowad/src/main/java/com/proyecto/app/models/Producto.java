@@ -12,8 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,10 +20,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Producto implements Serializable{
 
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int producto_id;
@@ -37,9 +40,9 @@ public class Producto implements Serializable{
 	@Column
 	private float precio;
 	
-	
-	 @OneToMany(mappedBy = "producto", cascade = CascadeType.MERGE, orphanRemoval = true)
-	 private List<VentaDetProducto> ordenesCompra = new ArrayList<>();
+	@JsonBackReference
+	@OneToMany(mappedBy = "producto", cascade = CascadeType.MERGE, orphanRemoval = true)
+	private List<VentaDetProducto> ordenesCompra = new ArrayList<>();
 	
 	 
 	

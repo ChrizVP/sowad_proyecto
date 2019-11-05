@@ -5,10 +5,7 @@ package com.proyecto.app.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.proyecto.app.models.User;
 import com.proyecto.app.repository.UserRepository;
 
-
+@CrossOrigin(origins = "http://localhost:4200",maxAge = 3600)
 @RestController
+@RequestMapping({"/aaaadmin/"})
 public class AdminController {
 
 
@@ -48,9 +46,16 @@ public class AdminController {
 	
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
-	@GetMapping("/admin/all")
+	@GetMapping("/all")
 	public String securedHello() {
-		return "redirect:index";
+		return "holaaaa";
 	}
+	
+	@GetMapping("/se")
+	public String login(){
+		return "authentidated successfully";
+	}
+	
+	
 	
 }

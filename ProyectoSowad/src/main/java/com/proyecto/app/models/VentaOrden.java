@@ -8,6 +8,8 @@ import javax.persistence.Embeddable;
 
 
 
+
+
 @Embeddable
 public class VentaOrden implements Serializable{
 	private static final long serialVersionUID = 1L;

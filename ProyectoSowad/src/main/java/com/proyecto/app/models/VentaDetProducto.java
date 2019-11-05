@@ -13,11 +13,19 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Getter;
 import lombok.Setter;
 
 
+
+
+
+
 @Entity
+@Getter
+@Setter
 @Component
 public class VentaDetProducto  implements Serializable {
 
@@ -28,8 +36,10 @@ public class VentaDetProducto  implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int ventaDetProducto_id;
 	
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private VentaCabProducto ventaCabProducto;
+	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Producto producto;
